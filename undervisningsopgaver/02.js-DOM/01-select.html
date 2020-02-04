@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-js-basics</title>
+    <link rel="stylesheet" href="">
+</head>
+
+
+
+<body>
+
+    <section id="content">
+
+        <div><a href="https://kea.dk/">KEA hjemmeside</a></div>
+        <div><a href="https://github.com/kris79i3">GitHub</a></div>
+        <div><img src="http://mabe-kea.dk/E19/pics/frog.png"></div>
+
+    </section>
+
+    <script>
+        const content = document.querySelector("#content");
+        const kea = document.querySelector("div:nth-child(1)");
+        const gitHub = document.querySelector("div:nth-child(2)");
+        const frog = document.querySelector("div:nth-child(3)");
+
+        console.log(content, kea, gitHub, frog);
+    </script>
+</body></html>
