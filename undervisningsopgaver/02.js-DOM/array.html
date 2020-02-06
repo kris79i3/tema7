@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-js-basics</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <ul id="display"></ul>
+
+
+    <script>
+        let playlist = ["Sound of Music", "Dancing in the Rain", "What a Wonderful World", "Lille Peter Edderkop", "Yesterday", "Den Knaldrøde Gummibåd", "Ved Landsbyens Gadekær", "Smilende Sussi", "Så Længe Jeg Lever", "Dancing Queen"]
+
+        console.log(playlist.length);
+
+        let list = document.querySelector("#display");
+
+        playlist.forEach(song => {
+            list.innerHTML += `<li>${song}</li>`;
+
+        })
+
+
+        /*Dette kunne også gøres på denne måde, hvis man skulle undgå innerHTML
+
+        playlist.forEach(song => {
+            let element = document.createElement("li");
+            let mySong = document.createTextNode(song);
+
+            element.appendChild(mySong);
+
+            document.querySelector("#display").appendChild(element);
+        })*/
+
+
+        playlist.forEach((song, index) => console.log(song, index))
+    </script>
+</body></html>

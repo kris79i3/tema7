@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        div:nth-child(1) {
+            background-color: green;
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        div:nth-child(2) {
+            background-color: red;
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div></div>
+    <div></div>
+
+
+    <script>
+        let frog = `http://mabe-kea.dk/E19/pics/frog.png`;
+        let pig = `http://mabe-kea.dk/E19/pics/pig.png`;
+
+        const green = document.querySelector("div:nth-child(1)");
+        const red = document.querySelector("div:nth-child(2)");
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log("DOMContentLoaded done");
+
+
+            green.innerHTML = `<img src=${frog} alt="frog">`;
+            red.innerHTML = `<img src=${pig} alt="pig">`;
+
+            green.addEventListener("click", greenClick);
+            red.addEventListener("click", redClick);
+
+            function greenClick() {
+                console.log("greenClick");
+
+                let greenStart = green.innerHTML;
+
+                green.innerHTML = red.innerHTML;
+                red.innerHTML = greenStart;
+
+            }
+
+            function redClick() {
+                console.log("redClick");
+                green.removeEventListener("click", greenClick);
+
+            }
+
+        }
+    </script>
+</body></html>

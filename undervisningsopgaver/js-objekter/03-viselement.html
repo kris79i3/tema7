@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-js-basics</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <article id="animal">
+        <h3></h3>
+        <img src="" alt="">
+        <p>Type: </p>
+        <p>Levested: </p>
+    </article>
+
+
+
+
+    <script>
+        let dyr = {
+            "navn": "Gris",
+            "type": "pattedyr",
+            "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+            "levested": "svinefarm"
+        }
+        let animal = document.querySelector("#animal");
+        let h3 = animal.querySelector("h3");
+        let img = animal.querySelector("img");
+        let pType = animal.querySelector("p");
+        let pLevested = animal.querySelector("p + p");
+
+        window.addEventListener("DOMContentLoaded", start);
+
+
+        function start() {
+            console.log(dyr);
+            console.log(`navn: ${dyr.navn} type: ${dyr.type} billede: ${dyr.billede} levested: ${dyr.levested}`);
+
+            h3.textContent = dyr.navn;
+            img.src = dyr.billede;
+            pType.textContent += dyr.type;
+            pLevested.textContent += dyr.levested;
+
+
+            /*.innerHTML = `navn: ${dyr.navn} type: ${dyr.type} levested: ${dyr.levested} <br> <img src=${dyr.billede} alt="gris">`;*/
+
+        }
+    </script>
+
+</body></html>
