@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personliste</title>
+    <style>
+        /*img {
+            width: 100%;
+            margin: 10px;
+        }*/
+
+        h1 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin: 1px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        p {
+            font-size: 1rem;
+            margin: 5px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 5px;
+            max-width: 912px;
+            margin: 0 auto;
+            grid-row: auto;
+        }
+
+        article {
+            padding: 10px;
+            border: 1px solid #000;
+            height: auto;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="person_list"></section>
+    <template>
+        <main>
+            <article>
+                <h1></h1>
+                <h2></h2>
+                <img src="" alt="">
+                <p>Sex: </p>
+                <p>Living in </p>
+                <p>Job: </p>
+                <p>Hobby: </p>
+                <p>Kæledyr: </p>
+                <p>Religion: </p>
+                <p>rpc: </p>
+
+                <p> </p>
+                <p></p>
+            </article>
+        </main>
+    </template>
+
+
+    <script>
+        const endpoint = "https://spreadsheets.google.com/feeds/list/1XWWbfWszD7f4jHqp51V_oT3pkHuR-ceEUw4YtrvK7F0/od6/public/values?alt=json";
+        let list = [];
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            loadData();
+        }
+
+        async function loadData() {
+            const response = await fetch(endpoint);
+            list = await response.json();
+            showList();
+        }
+
+        function showList() {
+            let container = document.querySelector("#list");
+            let listTemplate = document.querySelector("template");
+
+            list.feed.entry.forEach(person => {
+                let klon = listTemplate.cloneNode(true).content;
+                klon.querySelector("h1").textContent = `${person.gsx$navn.$t} ${person.gsx$efternavn.$t}`;
+                klon.querySelector("img").src = person.gsx$billede.$t;
+                klon.querySelector("h2").textContent = `${person.gsx$alder.$t} år`;
+                klon.querySelector("p").textContent += person.gsx$sex.$t;
+                klon.querySelector("p + p").textContent += person.gsx$by.$t;
+                klon.querySelector("p +p + p").textContent += person.gsx$job.$t;
+                klon.querySelector("p + p + p + p").textContent += person.gsx$hobby.$t;
+                klon.querySelector("p + p + p + p + p").textContent += person.gsx$kaeledyr.$t;
+                klon.querySelector("p + p + p + p + p + p").textContent += person.gsx$religion.$t;
+                klon.querySelector("p + p + p + p + p + p + p").textContent += person.gsx$rpc.$t;
+                person_list.appendChild(klon);
+            })
+
+        }
+    </script>
+
+</body></html>
