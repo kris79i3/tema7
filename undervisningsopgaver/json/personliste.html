@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personliste</title>
     <style>
-        /*img {
+        img {
             width: 100%;
             margin: 10px;
-        }*/
+            align-items: center;
+        }
 
         h1 {
             font-size: 2rem;
@@ -27,13 +28,12 @@
             margin: 5px;
         }
 
-        main {
+        #person_list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             grid-gap: 5px;
             max-width: 912px;
             margin: 0 auto;
-            grid-row: auto;
         }
 
         article {
@@ -43,9 +43,6 @@
             max-width: 300px;
             display: flex;
             flex-direction: column;
-
-            align-items: center;
-
         }
     </style>
 </head>
@@ -54,23 +51,21 @@
 
     <section id="person_list"></section>
     <template>
-        <main>
-            <article>
-                <h1></h1>
-                <h2></h2>
-                <img src="" alt="">
-                <p>Sex: </p>
-                <p>Living in </p>
-                <p>Job: </p>
-                <p>Hobby: </p>
-                <p>Kæledyr: </p>
-                <p>Religion: </p>
-                <p>rpc: </p>
+        <article>
+            <h1></h1>
+            <h2></h2>
+            <img src="" alt="">
+            <p>Sex: </p>
+            <p>Living in </p>
+            <p>Job: </p>
+            <p>Hobby: </p>
+            <p>Kæledyr: </p>
+            <p>Religion: </p>
+            <p>rpc: </p>
 
-                <p> </p>
-                <p></p>
-            </article>
-        </main>
+            <p> </p>
+            <p></p>
+        </article>
     </template>
 
 
