@@ -5,16 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100i&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <header>
+        <h1>Bistro Babushka</h1>
+    </header>
 
     <section id="single" class="">
         <article class="dish">
             <button class="close">X</button>
             <h4></h4>
             <img src="" alt="">
+            <p></p>
             <p></p>
         </article>
     </section>
@@ -46,14 +53,16 @@
         }
 
         function showDishes() {
+
             dishes.feed.entry.forEach(dish => {
                 if (dish.gsx$id.$t == dishId) {
                     console.log(dish);
 
-                    document.querySelector("#single h4").textContent = dish.gsx$navn.$t;
+                    document.querySelector("#single h4").textContent = `${dish.gsx$navn.$t} ${dish.gsx$pris.$t},-`;
                     document.querySelector("#single img").src = `imgs/large/${dish.gsx$billede.$t}.jpg`;
                     document.querySelector("#single img").alt = `picture of ${dish.gsx$navn.$t}`;
                     document.querySelector("#single p").textContent = dish.gsx$lang.$t;
+                    document.querySelector("#single p + p").textContent = `Oprindelse: ${dish.gsx$oprindelse.$t}`;
                 }
             })
         }
@@ -61,5 +70,8 @@
         function closeSingle() {
             history.back();
         }
+
     </script>
-</body></html>
+</body>
+
+</html>

@@ -28,7 +28,7 @@
     </header>
 
 
-    <section id="details" class="hidden">
+    <section id="single" class="hidden">
         <article class="dish">
             <button class="close">X</button>
             <h4></h4>
@@ -40,7 +40,8 @@
     <template>
         <article class="dish">
             <div class="img_frame">
-                <img src="" alt="">
+                <div class="overlay">Single view</div>
+                <img class="overview" src="" alt="">
             </div>
             <h4></h4>
             <p></p>
@@ -59,6 +60,7 @@
         function start() {
             loadData();
             addEventlistenersToButtons();
+            document.querySelector("#single").style.display = "none";
         }
 
         async function loadData() {
@@ -85,6 +87,7 @@
 
                     container.lastElementChild.addEventListener("click", () => {
                         location.href = "single.html?id=" + dish.gsx$id.$t;
+
                     })
                 }
             })
