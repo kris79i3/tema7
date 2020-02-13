@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="single" class="">
+        <article class="dish">
+            <button class="close">X</button>
+            <h4></h4>
+            <img src="" alt="">
+            <p></p>
+        </article>
+    </section>
+
+
+    <script>
+        const urlParameter = new URLSearchParams(window.location.search);
+
+        const dishId = urlParameter.get("id");
+
+        console.log(dishId);
+
+        const endpoint = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json";
+        let dishes = [];
+        let filter = "alle";
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            loadData();
+            document.querySelector("#single .close").addEventListener("click", closeSingle);
+        }
+
+        async function loadData() {
+            const response = await fetch(endpoint);
+            dishes = await response.json();
+            showDishes();
+
+        }
+
+        function showDishes() {
+            dishes.feed.entry.forEach(dish => {
+                if (dish.gsx$id.$t == dishId) {
+                    console.log(dish);
+
+                    document.querySelector("#single h4").textContent = dish.gsx$navn.$t;
+                    document.querySelector("#single img").src = `imgs/large/${dish.gsx$billede.$t}.jpg`;
+                    document.querySelector("#single img").alt = `picture of ${dish.gsx$navn.$t}`;
+                    document.querySelector("#single p").textContent = dish.gsx$lang.$t;
+                }
+            })
+        }
+
+        function closeSingle() {
+            history.back();
+        }
+    </script>
+</body></html>

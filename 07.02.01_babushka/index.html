@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Bistro Babushka</h1>
+        <h2>Menu</h2>
+        <nav class="kategori">
+            <h3>Kategorier</h3>
+            <button class="filter" data-kategori="alle">Alle</button>
+            <button class="filter" data-kategori="forretter">Forretter</button>
+            <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+            <button class="filter" data-kategori="desserter">Desserter</button>
+            <button class="filter" data-kategori="sideorders">Sideorders</button>
+            <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+        </nav>
+    </header>
+
+
+    <section id="details" class="hidden">
+        <article class="dish">
+            <button class="close">X</button>
+            <h4></h4>
+            <img src="" alt="">
+            <p></p>
+            <p></p>
+        </article>
+    </section>
+    <section id="menu"></section>
+    <template>
+        <article class="dish">
+            <div class="img_frame">
+                <div class="overlay">Quick view</div>
+                <img class="overview" src="" alt="">
+            </div>
+            <h4></h4>
+            <p></p>
+            <p></p>
+        </article>
+    </template>
+
+
+    <script>
+        const endpoint = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json";
+        let dishes = [];
+        let filter = "alle";
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            loadData();
+            addEventlistenersToButtons();
+        }
+
+        async function loadData() {
+            const response = await fetch(endpoint);
+            dishes = await response.json();
+            showDishes();
+
+        }
+
+        function showDishes() {
+            let container = document.querySelector("#menu");
+            container.innerHTML = "";
+            let listTemplate = document.querySelector("template");
+
+            dishes.feed.entry.forEach(dish => {
+                if (filter == "alle" || filter == dish.gsx$kategori.$t) {
+                    let klon = listTemplate.cloneNode(true).content;
+                    klon.querySelector("img").src = `imgs/small/${dish.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector("h4").textContent = dish.gsx$navn.$t;
+                    klon.querySelector("p").textContent = dish.gsx$kort.$t;
+                    klon.querySelector("p + p").textContent = `Pris: ${dish.gsx$pris.$t},-`;
+                    klon.querySelector("article").addEventListener("click", () => showDetails(dish));
+                    container.appendChild(klon);
+                }
+            })
+        }
+
+
+        function showDetails(dish) {
+            console.log(showDetails);
+            document.querySelector("#details").classList.remove("hidden");
+
+            document.querySelector("#details h4").textContent = `${dish.gsx$navn.$t} ${dish.gsx$pris.$t},-`
+            document.querySelector("#details img").src = `imgs/large/${dish.gsx$billede.$t}.jpg`;
+            document.querySelector("#details img").alt = `picture of ${dish.gsx$navn.$t}`;
+            document.querySelector("#details p").textContent = dish.gsx$lang.$t;
+            document.querySelector("#details p + p").textContent = `Oprindelse: ${dish.gsx$oprindelse.$t}`;
+            document.querySelector("#details .close").style.cursor = "pointer";
+
+            document.querySelector("#details .close").addEventListener("click", () => {
+                document.querySelector("#details").classList.add("hidden");
+            })
+
+            document.querySelector("#details").addEventListener("click", () => {
+                document.querySelector("#details").classList.add("hidden");
+            })
+        }
+
+
+        function addEventlistenersToButtons() {
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+        }
+
+        function filtrering() {
+            console.log("FILTER");
+            filter = this.dataset.kategori;
+            document.querySelector("h3").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.classList.remove("active");
+            })
+            this.classList.add("active");
+            showDishes();
+        }
+    </script>
+
+</body></html>

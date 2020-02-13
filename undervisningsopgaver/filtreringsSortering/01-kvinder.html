@@ -80,6 +80,7 @@
     <script>
         const endpoint = "https://spreadsheets.google.com/feeds/list/1XWWbfWszD7f4jHqp51V_oT3pkHuR-ceEUw4YtrvK7F0/od6/public/values?alt=json";
         let list = [];
+        let filter = "k";
 
         document.addEventListener("DOMContentLoaded", start);
 
@@ -98,18 +99,20 @@
             let listTemplate = document.querySelector("template");
 
             list.feed.entry.forEach(person => {
-                let klon = listTemplate.cloneNode(true).content;
-                klon.querySelector("h1").textContent = `${person.gsx$navn.$t} ${person.gsx$efternavn.$t}`;
-                klon.querySelector("img").src = person.gsx$billede.$t;
-                klon.querySelector("h2").textContent = `${person.gsx$alder.$t} år`;
-                klon.querySelector("p").textContent += person.gsx$sex.$t;
-                klon.querySelector("p + p").textContent += person.gsx$by.$t;
-                klon.querySelector("p +p + p").textContent += person.gsx$job.$t;
-                klon.querySelector("p + p + p + p").textContent += person.gsx$hobby.$t;
-                klon.querySelector("p + p + p + p + p").textContent += person.gsx$kaeledyr.$t;
-                klon.querySelector("p + p + p + p + p + p").textContent += person.gsx$religion.$t;
-                klon.querySelector("p + p + p + p + p + p + p").textContent += person.gsx$rpc.$t;
-                container.appendChild(klon);
+                if (person.gsx$sex.$t == filter) {
+                    let klon = listTemplate.cloneNode(true).content;
+                    klon.querySelector("h1").textContent = `${person.gsx$navn.$t} ${person.gsx$efternavn.$t}`;
+                    klon.querySelector("img").src = person.gsx$billede.$t;
+                    klon.querySelector("h2").textContent = `${person.gsx$alder.$t} år`;
+                    klon.querySelector("p").textContent += person.gsx$sex.$t;
+                    klon.querySelector("p + p").textContent += person.gsx$by.$t;
+                    klon.querySelector("p +p + p").textContent += person.gsx$job.$t;
+                    klon.querySelector("p + p + p + p").textContent += person.gsx$hobby.$t;
+                    klon.querySelector("p + p + p + p + p").textContent += person.gsx$kaeledyr.$t;
+                    klon.querySelector("p + p + p + p + p + p").textContent += person.gsx$religion.$t;
+                    klon.querySelector("p + p + p + p + p + p + p").textContent += person.gsx$rpc.$t;
+                    container.appendChild(klon);
+                }
             })
 
         }

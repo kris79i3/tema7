@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-js-basics</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <article id="animal"></article>
+
+
+
+
+    <script>
+        let dyr = [{
+                "navn": "Gris",
+                "type": "pattedyr",
+                "levested": "svinefarm",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png"
+            },
+            {
+                "navn": "frø",
+                "type": "pattedyr",
+                "levested": "sump",
+                "billed": "http://mabe-kea.dk/E19/pics/pig.png"
+            },
+            {
+                "navn": "ræv",
+                "type": "rovdyr",
+                "levested": "skov",
+                "billede": "http://mabe-kea.dk/E19/pics/fox.png"
+            },
+            {
+                "navn": "sild",
+                "type": "fisk",
+                "levested": "åen",
+                "billede": "http://mabe-kea.dk/E19/pics/sild.jpg"
+            },
+            {
+                "navn": "krokodille",
+                "type": "rovdyr",
+                "levested": "Daniels badekar",
+                "billede": "http://mabe-kea.dk/E19/pics/kroko.jpg"
+            }
+        ];
+
+        let animal = document.querySelector("#animal");
+
+        window.addEventListener("DOMContentLoaded", start);
+
+
+        function start() {
+            console.log(dyr);
+            /*console.log(`navn: ${dyr.navn} type: ${dyr.type} billede: ${dyr.billede} levested: ${dyr.levested}`);
+
+            animal.innerHTML = `navn: ${dyr.navn} type: ${dyr.type} levested: ${dyr.levested} <br> <img src=${dyr.billede} alt="gris">`;*/
+
+            animal.innerHTML = `${dyr["0"].navn}, ${dyr["0"].type} fra ${dyr["0"].levested} <br>`;
+            animal.innerHTML += `${dyr["1"].navn}, ${dyr["1"].type} fra ${dyr["1"].levested}<br>`;
+            animal.innerHTML += `${dyr["2"].navn}, ${dyr["2"].type} fra ${dyr["2"].levested}<br>`;
+            animal.innerHTML += `${dyr["3"].navn}, ${dyr["3"].type} fra ${dyr["3"].levested}<br>`;
+            animal.innerHTML += `${dyr["4"].navn}, ${dyr["4"].type} fra ${dyr["4"].levested}<br>`;
+
+        }
+    </script>
+
+</body></html>

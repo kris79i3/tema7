@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-js-basics</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <section id="container"></section>
+    <template>
+        <article class="animals">
+            <h3></h3>
+            <img src="" alt="">
+            <p>Type: </p>
+            <p>Levested: </p>
+        </article>
+    </template>
+
+
+
+
+    <script>
+        let alleDyr = [];
+        document.addEventListener("DOMContentLoaded", start);
+
+
+
+        //start
+        function start() {
+
+            //hent alleDyr data
+            hentData();
+        }
+
+        //vis alleDyr
+        async function hentData() {
+            const response = await fetch("alle_dyr.json");
+            //console.log(response);
+            alleDyr = await response.json();
+            //console.log(alleDyr);
+            visDyr();
+        }
+
+
+
+        function visDyr() {
+            let container = document.querySelector("#container");
+            let dyrTemplate = document.querySelector("template");
+
+            alleDyr.forEach(enkeltDyr => {
+                let klon = dyrTemplate.cloneNode(true).content;
+                klon.querySelector("h3").textContent = enkeltDyr.navn;
+                klon.querySelector("img").src = enkeltDyr.billede;
+                klon.querySelector("p").textContent += enkeltDyr.type;
+                klon.querySelector("p:last-child").textContent += enkeltDyr.levested;
+                container.appendChild(klon);
+            })
+        }
+    </script>
+
+</body></html>
